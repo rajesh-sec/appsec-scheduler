@@ -1,0 +1,8 @@
+{
+  "appsec-scans/cxone-demo-1@main": {
+    "status": "success"
+  },
+  "appsec-scans/cxone-demo-2@main": {
+    "status": "success"
+  }
+}

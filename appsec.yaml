@@ -1,0 +1,24 @@
+name: ModelN AppSec Scans
+
+on:
+  push:
+    branches: [ "main", "feature/*" ] #Add protected branches to trigger the scan
+  pull_request:
+    branches: [ "main", "feature/*" ] #Add protected branches to trigger the scan
+  repository_dispatch:
+    types: [scheduler]
+  
+jobs:
+  AppSec-Scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: cxone scan
+        uses: appsec-scans/cxone-custom-action@main
+        with:
+          cx_tenant: ${{ secrets.CX_TENANT }}
+          base_uri: ${{ secrets.BASE_URI }}
+          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
+          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}

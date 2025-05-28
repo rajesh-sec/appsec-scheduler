@@ -1,0 +1,10 @@
+[
+  {
+    "repo_name": "appsec-scans/cxone-demo-1",
+    "branch": "main"
+  },
+    {
+    "repo_name": "appsec-scans/cxone-demo-2",
+    "branch": "main"
+  }
+]

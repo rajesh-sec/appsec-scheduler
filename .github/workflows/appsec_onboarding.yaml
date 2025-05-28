@@ -1,0 +1,30 @@
+name: AppSec Onboarding PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_name:
+        description: 'Name of the repository or use "all" to Onboard all repos'
+        # required: false
+        type: string
+
+jobs:
+  onboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run onboarding script
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          REPO_NAME: ${{ github.event.inputs.repo_name }}
+        run: python3 appsec_onboarding.py

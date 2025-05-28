@@ -1,1 +1,1 @@
-# appsec-scheduler
+# appsec-scan-scheduler
