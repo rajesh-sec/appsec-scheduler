@@ -77,15 +77,31 @@ for item in schedule_list:
             f"| `{repo_name}` | `{branch}` | ❌ Failed ({response.status_code}) | `{error_detail}` |"
         )
 
+# Define the sorting key function
+def sort_key(line):
+    if "Success" in line or "Failed" in line:
+        priority = 0
+    else:
+        priority = 1
+    # You could extract repo name to sort alphabetically within priority
+    repo = line.split('|')[1].strip()
+    return (priority, repo)
+
 # Save current scan results
 with open(SCAN_FILE, "w") as f:
     json.dump(previous_results, f, indent=2)
+
+
+header = summary_lines[:3]
+data_lines = summary_lines[3:]
+sorted_data = sorted(data_lines, key=sort_key)
+final_summary = header + sorted_data
 
 # Write markdown summary to GitHub Actions job summary
 summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
 if summary_path:
     with open(summary_path, "w") as summary_file:
-        summary_file.write("\n".join(summary_lines))
+        summary_file.write("\n".join(final_summary))
 else:
     print("GITHUB_STEP_SUMMARY not set. Printing summary instead:")
-    print("\n".join(summary_lines))
+    print("\n".join(final_summary))

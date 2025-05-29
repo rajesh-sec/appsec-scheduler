@@ -6,7 +6,7 @@ This PR introduces the **AppSec Scans** GitHub Actions workflow that will run se
  
 ### 📌 Developer Instructions
  
-Update the workflow file (`.github/workflows/appsec.yaml`) to include your branch patterns under `push` and `pull_request`:
+Update the workflow file (`.github/workflows/appsec.yaml`) to include your branch patterns under `push` and `pull_request` specific to your workflow:
  
 ```yaml
 on:
